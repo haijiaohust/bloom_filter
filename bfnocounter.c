@@ -3,7 +3,7 @@
 #include <string.h>
 #include <openssl/md5.h>
 
-#define BITS_PER_LONG 32
+#define BITS_PER_LONG 64
 #define BLK_SIZE 4096
 
 unsigned int bloom_filter_exist = 0;
@@ -74,7 +74,7 @@ int main()
 		bloom_filter_exist = 0;
 		bloom_filter_noexist = 0;
 		bf.bloom_filter_size <<= 1;
-		bf.bloom_filter_mask = bf.bloom_filter_size - 1;
+		bf.bloom_filter_mask = (bf.bloom_filter_size << 3) - 1;
 		bf.bloom_filter = malloc(bf.bloom_filter_size);
 		memset(bf.bloom_filter, 0, bf.bloom_filter_size);
 		for(j = 0; j < 7; j++){
